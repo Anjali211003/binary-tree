@@ -1,0 +1,33 @@
+/* preorder traversal */
+ans = []
+
+        def preorder(curr):
+            if curr:
+                ans.append(curr.val)
+                preorder(curr.left)
+                preorder(curr.right)
+        
+        preorder(root)
+        return ans
+
+/* inorder traversal */
+ res = []
+
+        def inorder(curr):
+            if curr:
+                inorder(curr.left)
+                res.append(curr.val)
+                inorder(curr.right)
+        
+        inorder(root)
+        return res
+        
+/* postorder traversal */
+ ans=[]
+        def postorder(curr):
+            if(curr):
+                postorder(curr.left)
+                postorder(curr.right)
+                ans.append(curr.val)
+        postorder(root)
+        return ans
