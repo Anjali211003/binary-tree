@@ -1,0 +1,30 @@
+class Solution {
+public:
+   pair<int,int> dfs(TreeNode* root){
+        
+        if(!root){
+
+        return {0,0};
+        }
+
+       pair<int,int> leftpair=dfs(root->left);
+       pair<int,int> rightpair=dfs(root->right);
+
+        int withroot=root->val+leftpair.second+rightpair.second;
+
+       int  without=max(leftpair.first,leftpair.second)+max(rightpair.first,rightpair.second);
+    
+        return {withroot,without};
+    }
+    int rob(TreeNode* root) {
+        if(!root)
+        return 0;
+        if(root && !root->left && !root->right)
+        return root->val;
+        
+        pair<int,int> ans=dfs(root);
+        int res=max(ans.first,ans.second);
+        return res;
+        
+    }
+};
