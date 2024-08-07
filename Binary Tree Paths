@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<int> partialpath={root->val};
+         vector<vector<int>>allRoottoLeafpath;
+         traverse(root,partialpath,allRoottoLeafpath);
+         vector<string>output;
+         for(vector<int>& path: allRoottoLeafpath){
+            string str="";
+            for(int nodeval:path){
+                if(!str.empty()){
+                    str=str+"->";
+                   
+                }
+                 str=str+to_string(nodeval);
+               
+            }
+             output.push_back(str);
+         }
+         return output;
+    }
+private:
+   void traverse(TreeNode* node,vector<int>& partialpath,vector<vector<int>>& allRoottoLeafpath){
+       
+         if(!node->left && !node->right) {
+           allRoottoLeafpath.push_back(partialpath);
+        } 
+        else {
+               if(node->left) {
+                partialpath.push_back(node->left->val);
+                traverse(node->left,partialpath,allRoottoLeafpath);
+                partialpath.pop_back();
+               }
+            if(node->right) {
+                partialpath.push_back(node->right->val);
+               traverse(node->right,partialpath,allRoottoLeafpath);
+               partialpath.pop_back();
+            }
+         
+            
+        }
+   }
+};
