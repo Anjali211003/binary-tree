@@ -1,0 +1,43 @@
+class Solution {
+public:
+int MOD=1e9+7;
+    int numFactoredBinaryTrees(vector<int>& arr) 
+    {
+        sort(arr.begin(),arr.end());
+        map < int, long long int > mp;
+        for(int i=0;i<arr.size();i++)
+        {
+            mp.insert({arr[i],1});
+        }
+
+        for(int i=1;i<arr.size();i++)
+        {
+            auto it1=mp.find(arr[i]);
+            long long int count=0;
+            for(int j=0;j<i;j++)
+            {
+                if(arr[i]%arr[j]==0)
+                {
+                    auto it2=mp.find(arr[j]);
+                    auto it3=mp.find(arr[i]/arr[j]);
+                    if(it3!=mp.end())
+                    {
+                        count=count+it2->second*it3->second;
+
+                    }
+                }
+            }
+            it1->second=it1->second+count;
+        }
+        long long int sum=0;
+        for(auto it4=mp.begin();it4!=mp.end();it4++)
+        {
+            sum=(sum+it4->second);
+        }
+        return sum%MOD;
+
+
+
+        
+    }
+};
